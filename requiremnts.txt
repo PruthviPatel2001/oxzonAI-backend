@@ -1,0 +1,9 @@
+PyMuPDF
+transformers 
+torch 
+langchain 
+langchain-community 
+langchain-core
+chromadb
+tiktoken
+sentencepiece
