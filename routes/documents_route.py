@@ -31,7 +31,7 @@ def query_document_route():
     user_query = data.get('question')
 
     # Fetch the document from the database
-    document = mongo.db.pdfData.find_one({"_id": ObjectId(document_id)})
+    document = mongo.db.ReportDetails.find_one({"_id": ObjectId(document_id)})
     
     if not document:
         return jsonify({'error': 'Document not found!'}), 404

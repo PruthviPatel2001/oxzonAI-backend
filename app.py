@@ -1,5 +1,7 @@
 from flask import Flask, jsonify
 from routes.documents_route import document_routes
+from routes.reportTypes_route import report_types_routes
+
 from db import init_app, mongo  # Import mongo here
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -16,12 +18,13 @@ app.config["MONGO_URI"] = "mongodb+srv://patelpruthvi:#Pruthvi1202@docstorageclu
 init_app(app)
 
 app.register_blueprint(document_routes)
+app.register_blueprint(report_types_routes)
 
 @app.route('/test-connection', methods=['GET'])
 def test_connection():
     try:
         # Attempt to retrieve data from the 'pdfData' collection
-        pdf_data = mongo.db.pdfData.find_one()
+        pdf_data = mongo.db.ReportDetails.find_one()
         if pdf_data:
             return jsonify({"message": "Connection successful!", "data": pdf_data}), 200
         else:

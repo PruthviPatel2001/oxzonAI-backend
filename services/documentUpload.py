@@ -1,8 +1,7 @@
 from flask import jsonify
 from werkzeug.utils import secure_filename
-from models.document import Document
+from models.documentMetaData import Document, DocumentNote
 import os
-
 
 ALLOWED_EXTENSIONS = {'pdf'}
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'clientFiles')
@@ -31,10 +30,10 @@ def upload_document(request):
             
             data = request.form
             
+            # Create Document instance
             document = Document(
                 name=data.get('name'),
-                type_of_report=data.get('type_of_report'),
-                additional_notes=data.get('additional_notes'),
+                report_id=data.get('report_id'),
                 pages=data.get('pages'),
                 pdf_location=file_path
             )
@@ -42,12 +41,18 @@ def upload_document(request):
             # Save the document to the database and retrieve the inserted ID
             document_id = document.save_to_db()
             
+            # Save additional notes, if provided
+            additional_notes = data.get('additional_notes')
+            if additional_notes:
+                note = DocumentNote(document_id=document_id, note=additional_notes)
+                note.save_to_db() 
+
             # Convert ObjectId to string before returning it in the response
             return jsonify({
                 'message': 'Document uploaded successfully!',
                 'file_path': file_path,
                 'document_name': data.get('name'),
-                'document_id': str(document_id) 
+                'document_id': str(document_id)
             }), 201
         else:
             return jsonify({'error': 'File extension not allowed. Please upload a PDF file.'}), 400

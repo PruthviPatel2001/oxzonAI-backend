@@ -20,7 +20,7 @@ def search_document():
         except Exception:
             return jsonify({'error': 'Invalid document ID format!'}), 400
         
-        document = mongo.db.pdfData.find_one({"_id": document_id})
+        document = mongo.db.ReportDetails.find_one({"_id": document_id})
         if not document:
             return jsonify({'error': 'Document not found!'}), 404
         
