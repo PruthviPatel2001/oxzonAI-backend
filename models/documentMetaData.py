@@ -48,5 +48,31 @@ class Document:
         })
         return result.inserted_id 
     
+class DocumentEmbedding:
+    def __init__(self, document_id, embedding):
+        self.document_id = document_id  
+        self.embedding = embedding 
+
+    def save_to_db(self):
+        result = mongo.db.DocumentEmbeddings.insert_one({
+            'document_id': self.document_id,
+            'embedding': self.embedding
+        })
+        return result.inserted_id
+
+    @staticmethod
+    def get_by_document_id(document_id):
+        embedding = mongo.db.DocumentEmbeddings.find_one({"document_id": document_id})
+        if embedding:
+            embedding['_id'] = str(embedding['_id'])
+        return embedding
+
+    @staticmethod
+    def get_all():
+        embeddings = list(mongo.db.DocumentEmbeddings.find())
+        for embedding in embeddings:
+            embedding['_id'] = str(embedding['_id'])
+        return embeddings
+    
 
     
