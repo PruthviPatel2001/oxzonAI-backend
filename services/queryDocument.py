@@ -1,11 +1,8 @@
-from flask import request, jsonify
-from db import mongo  
-from bson.objectid import ObjectId
+from flask import  jsonify
 import os
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.document_loaders import PyMuPDFLoader
 from huggingface_hub import InferenceClient
-# import env 
 from dotenv import load_dotenv
 
 load_dotenv()

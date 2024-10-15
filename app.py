@@ -12,7 +12,7 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-app.config["MONGO_URI"] = "mongodb+srv://patelpruthvi:#Pruthvi1202@docstoragecluster.jl8my.mongodb.net/knowledge_base_app?retryWrites=true&w=majority&tlsInsecure=true&appName=DocStorageCluster"
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 
 # Initialize the MongoDB connection
 init_app(app)
@@ -23,7 +23,6 @@ app.register_blueprint(report_types_routes)
 @app.route('/test-connection', methods=['GET'])
 def test_connection():
     try:
-        # Attempt to retrieve data from the 'pdfData' collection
         pdf_data = mongo.db.ReportDetails.find_one()
         if pdf_data:
             return jsonify({"message": "Connection successful!", "data": pdf_data}), 200

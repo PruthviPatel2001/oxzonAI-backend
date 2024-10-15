@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 from db import mongo  
 from bson.objectid import ObjectId
-import os
 
 from services.documentUpload import upload_document
 from services.keywordSearch import search_document, download_highlighted_file
