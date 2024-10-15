@@ -81,3 +81,7 @@ The implementation of the RAG (Retrieval-Augmented Generation) architecture and 
 ## LLM Model
 
 This project uses the LLM model from Hugging Face: [meta-llama/Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct).
+
+## Frontend Repository
+
+For the front-end implementation of the AI-Based Knowledge-Based Search Retrieval System, please visit the following repository: [oxzonAI-frontend](https://github.com/PruthviPatel2001/oxzonAI-frontend).
